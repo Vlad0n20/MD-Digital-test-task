@@ -27,6 +27,6 @@ def create_teams(count=10):
         new_team.users.set(random.sample(list(users_ids), random.randint(2, len(users_ids) - 1)))
 
 
-def run():
-    create_users()
-    create_teams()
+def populate_db(users_count=10, teams_count=10):
+    create_users(users_count)
+    create_teams(teams_count)
