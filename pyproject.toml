@@ -1,0 +1,30 @@
+[tool.poetry]
+name = "mbdigitaltesttast"
+version = "0.1.0"
+description = ""
+authors = ["Vlad0n23 <vlad.onischuk1234@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "3.11.0"
+asgiref = "3.6.0"
+django = "4.2"
+flake8 = "6.0.0"
+mccabe = "0.7.0"
+pycodestyle = "2.10.0"
+pyflakes = "3.0.1"
+python-decouple = "3.8"
+sqlparse = "0.4.4"
+djangorestframework = "^3.14.0"
+ipython = "^8.20.0"
+rest-framework-simplejwt = "^0.0.2"
+psycopg2-binary = "^2.9.9"
+djangorestframework-simplejwt = "^5.3.1"
+drf-yasg = "^1.21.7"
+faker = "^22.2.0"
+factory-boy = "^3.3.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
