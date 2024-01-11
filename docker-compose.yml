@@ -3,14 +3,14 @@ version: '3.8'
 services:
   db:
     image: postgres:13.0-alpine
+    container_name: "db"
     restart: always
     env_file: .env.db
-    ports:
-      - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data/
   web:
     image: "backend"
+    container_name: "app"
     restart: always
     build:
       context: .
