@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'apps.user.apps.UserConfig',
+    'apps.group.apps.GroupConfig',
 
 ]
 
