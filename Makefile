@@ -10,6 +10,12 @@ stop_containers:
 remove_containers:
 	docker-compose -f docker-compose.yml down -v
 
+create_admin_in_container:
+	docker exec -it app python manage.py createsuperuser
 
-create_admin:
-	python manage.py createsuperuser
+populate_db_in_container:
+	docker exec -it app python manage.py populate_db
+
+load_data_in_container:
+	docker exec -t app python manage.py loaddata fixtures/user.json
+	docker exec -t app python manage.py loaddata fixtures/group.json
