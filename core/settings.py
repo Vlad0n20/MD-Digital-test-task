@@ -24,7 +24,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-
+    'apps.user.apps.UserConfig',
 
 ]
 
@@ -103,8 +103,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = (
     os.path.join(CORE_DIR, 'apps/staticfiles'),
 )
-
-
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
