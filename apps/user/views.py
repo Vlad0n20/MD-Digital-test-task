@@ -13,6 +13,6 @@ class UserViewSet(CustomModelViewSet):
             return serializers.UserCreateSerializer
         elif self.action == 'retrieve':
             return serializers.UserDetailSerializer
-        elif self.action == 'update':
+        elif self.action in ['update', 'partial_update']:
             return serializers.UserUpdateSerializer
         return super().get_serializer_class()
