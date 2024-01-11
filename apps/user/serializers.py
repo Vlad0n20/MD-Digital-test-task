@@ -4,9 +4,19 @@ from .models import User
 
 
 class UserCreateSerializer(serializers.ModelSerializer):
+
+    def create(self, validated_data):
+        password = validated_data.pop('password')
+        user = User.objects.create_user(**validated_data)
+        user.set_password(password)
+        return user
+
     class Meta:
         model = User
-        fields = ('username', 'password',)
+        fields = ('id', 'username', 'password',)
+        extra_kwargs = {
+            'password': {'write_only': True},
+        }
 
 
 class UserListSerializer(serializers.ModelSerializer):
