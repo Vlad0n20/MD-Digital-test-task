@@ -1,3 +1,5 @@
+import re
+
 from rest_framework import serializers
 
 from .models import User
@@ -10,26 +12,30 @@ class UserCreateSerializer(serializers.ModelSerializer):
         user.set_password(validated_data.get('password'))
         return user
 
+    def validate_first_name(self, value):
+        special_characters_pattern = re.compile(r'[!@#$%^&*()_+{}|;":,.<>?/~`]')
+        if special_characters_pattern.search(value):
+            raise serializers.ValidationError("First name cannot contain special characters.")
+
+        return value
+
+    def validate(self, attrs):
+        if User.objects.filter(email=attrs.get('email')).exists():
+            raise serializers.ValidationError("User with this email already exists")
+        return attrs
+
     class Meta:
         model = User
-        fields = ('id', 'username', 'password',)
+        fields = ('id', 'first_name', 'last_name', 'email', 'password',)
         extra_kwargs = {
             'password': {'write_only': True},
         }
 
 
 class UserListSerializer(serializers.ModelSerializer):
-
-    def validate_username(self, value):
-        if 'test' in value:
-            raise serializers.ValidationError("Username cannot contain 'test'")
-        if User.objects.filter(username=value).exists():
-            raise serializers.ValidationError("Username already exists")
-        return value
-
     class Meta:
         model = User
-        fields = ('id', 'username', 'email',)
+        fields = ('id', 'first_name', 'last_name', 'email',)
 
 
 class UserDetailSerializer(serializers.ModelSerializer):
@@ -40,13 +46,12 @@ class UserDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'username', 'email', 'date_joined', 'is_active', 'is_staff', 'is_superuser', 'joined_duration')
+        fields = ('id', 'first_name', 'last_name', 'email', 'date_joined', 'is_active',
+                  'is_staff', 'is_superuser', 'joined_duration')
 
 
 class UserUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'username', 'email', 'is_active', 'is_staff', 'is_superuser')
-        extra_kwargs = {
-            'username': {'required': False},
-        }
+        fields = ('id', 'first_name', 'last_name', 'email',
+                  'is_active', 'is_staff', 'is_superuser')
