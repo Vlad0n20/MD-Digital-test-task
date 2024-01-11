@@ -1,5 +1,7 @@
 import re
+from datetime import datetime
 
+from django.utils import timezone
 from rest_framework import serializers
 
 from .models import User
@@ -42,7 +44,7 @@ class UserDetailSerializer(serializers.ModelSerializer):
     joined_duration = serializers.SerializerMethodField()
 
     def get_joined_duration(self, obj) -> int:
-        return (obj.date_joined - obj.last_login).days
+        return (timezone.make_aware(datetime.now()) - obj.date_joined).days
 
     class Meta:
         model = User
