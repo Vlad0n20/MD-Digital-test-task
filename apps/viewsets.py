@@ -3,10 +3,12 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
 from apps.mixins import MixedPermission
+from core.yasg import CustomSwaggerViewSetTag
 
 
 class CustomModelViewSet(MixedPermission, ModelViewSet):
     permission_classes_by_action = {}
+    swagger_schema = CustomSwaggerViewSetTag
 
     def list(self, request, *args, **kwargs):
         try:
